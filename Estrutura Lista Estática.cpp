@@ -17,34 +17,34 @@ typedef struct{
 typedef struct {
 	REGISTRO A[MAX+1];
 	int nroElem;
-} LISTA;
+} TANQUE;
 
-void inicializarLista(LISTA *l){
+void inicializarTanque(TANQUE *l){
 	l->nroElem = 0;
 }
 
-void exibirLista(LISTA *l){
+void exibirTanque(TANQUE *l){
 	int i;
 	
-	printf("Lista: \" ");
+	printf("Tanque: \" ");
 	for (i=0; i < l->nroElem; i++)
     printf("%d ", l->A[i].chave); 
 	printf("\"\n");
 }
 
-int tam(LISTA *l) {
+int tam(TANQUE *l) {
 	return(l->nroElem);
 }
 
-int tamEmBytes(LISTA *l) {
-	return(sizeof(LISTA));
+int tamEmBytes(TANQUE *l) {
+	return(sizeof(TANQUE));
 }
 
-void destruirLista(LISTA *l) {
+void destruirTanque(TANQUE *l) {
 	l->nroElem = 0;
 }
 
-bool incluirElemLista(REGISTRO reg, int i, LISTA *l){
+bool incluirElemTanque(REGISTRO reg, int i, TANQUE *l){
 	int j;
 	
 	if ((l->nroElem >= MAX) || (i < 1) || (i > (l->nroElem+1))) {
@@ -61,7 +61,7 @@ bool incluirElemLista(REGISTRO reg, int i, LISTA *l){
 	return(true);
 }
 
-int buscaSeq(TIPOCHAVE ch, LISTA *l) {
+int buscaSeq(TIPOCHAVE ch, TANQUE *l) {
 	while (i < l->nroElem){
 		if(ch == l->A[i].chave) {
 			return(i);
@@ -74,7 +74,7 @@ int buscaSeq(TIPOCHAVE ch, LISTA *l) {
 	return(ERRO);
 }
 
-bool incluirElemListaOrd(REGISTRO reg, LISTA *l) {
+bool incluirElemTanqueOrd(REGISTRO reg, TANQUE *l) {
 	int x = 0;
 	
 	TIPOCHAVE ch = reg.chave;
@@ -92,11 +92,11 @@ bool incluirElemListaOrd(REGISTRO reg, LISTA *l) {
 	}
 	
 	else {
-		return(incluirElemLista(reg, x+1, l));
+		return(incluirElemTanque(reg, x+1, l));
 	}
 }
 
-bool excluirElemLista(TIPOCHAVE ch, LISTA *l) { 
+bool excluirElemTanque(TIPOCHAVE ch, TANQUE *l) { 
 	int pos, j;
 	pos = buscaSeq(ch, l);
 	if(pos == ERRO) {
