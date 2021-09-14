@@ -21,7 +21,7 @@ typedef struct {
 
 void inicializarLista(LISTA *l){
 	l->nroElem = 0;
-} 
+}
 
 void exibirLista(LISTA *l){
 	int i;
@@ -30,19 +30,19 @@ void exibirLista(LISTA *l){
 	for (i=0; i < l->nroElem; i++)
     printf("%d ", l->A[i].chave); 
 	printf("\"\n");
-} 
+}
 
 int tam(LISTA *l) {
 	return(l->nroElem);
-} 
+}
 
 int tamEmBytes(LISTA *l) {
 	return(sizeof(LISTA));
-} 
+}
 
 void destruirLista(LISTA *l) {
 	l->nroElem = 0;
-} 
+}
 
 bool incluirElemLista(REGISTRO reg, int i, LISTA *l){
 	int j;
