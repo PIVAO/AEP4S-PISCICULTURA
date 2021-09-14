@@ -26,9 +26,9 @@ void inicializarTanque(TANQUE *l){
 void exibirTanque(TANQUE *l){
 	int i;
 	
-	printf("Tanque: \" ");
+	printf("Tanques adicionados: \" ");
 	for (i=0; i < l->nroElem; i++)
-    printf("%d ", l->A[i].chave); 
+    printf("%d ", l->A[i].chave);
 	printf("\"\n");
 }
 
