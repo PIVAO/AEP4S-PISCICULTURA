@@ -2,11 +2,11 @@
 
 void menu() {
 	printf("MENU\n");
-	printf("1 : Incluir elemento \n");
-	printf("2 : Excluir um elemento \n");
-	printf("3 : Imprimir valores da lista\n");
-	printf("4 : Destruir (zerar) lista\n");
-	printf("5 : Exibir log de utilização da lista\n");
+	printf("1 : Cadastrar tanque (em números) \n");
+	printf("2 : Excluir um tanque \n");
+	printf("3 : Mostrar tanques cadastrados \n");
+	printf("4 : Apagar todos os tanques \n");
+	printf("5 : Exibir log de utilização da lista \n");
 	printf("6 : SAIR \n");
 	printf("Digite a opção desejada: ");
 	scanf("%d",&opcao);
@@ -15,29 +15,29 @@ void menu() {
 
 void incluir(LISTA *l){
 	TIPOCHAVE ch;
-	printf("Qual elemento deseja incluir? ");
+	printf("Qual tanque deseja incluir? ");
 	scanf("%d",&ch);
 	REGISTRO reg;
 	reg.chave = ch;
 	if (incluirElemListaOrd(reg,l)) {
-		printf("Elemento %d incluído corretamente.\n\n",ch);
+		printf("Tanque %d incluído com sucesso.\n\n",ch);
 	}
 	
 	else {
-		printf("Não foi possível incluir o elemento %d.\n\n",ch);
+		printf("Não foi possível incluir o tanque %d.\n\n",ch);
 	}
 }
 
 void excluir(LISTA *l){
 	TIPOCHAVE ch;
-	printf("Elemento a ser excluído: ");
+	printf("Tanque a ser excluído: ");
 	scanf("%d",&ch);
 	if (excluirElemLista(ch,l)) {
-		printf("Elemento %d excluído corretamente.\n\n",ch);
+		printf("Tanque %d excluído com sucesso.\n\n",ch);
 	}
 	
 	else {
-		printf("Não foi possível excluir elemento %d.\n\n",ch);
+		printf("Não foi possível excluir tanque %d.\n\n",ch);
 	}
 }
 
@@ -47,12 +47,12 @@ void imprimir_elementos(LISTA *l){
 
 void destruir(LISTA *l){
 	destruirLista(l);
-	printf("Lista zerada.\n\n");
+	printf("Lista de tanques zerados.\n\n");
 }
 
 void exibir_detalhes_lista(LISTA *l){
-	printf("Número de elementos na lista: %d.\n",tam(l));
-	printf("Tamanho da lista (em bytes): %d.\n\n",tamEmBytes(l));
+	printf("Número de tanques na lista: %d.\n",tam(l));
+	printf("Tamanho da lista de tanques (em bytes): %d.\n\n",tamEmBytes(l));
 }
 
 int main(){
