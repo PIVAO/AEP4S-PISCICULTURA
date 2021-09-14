@@ -28,6 +28,10 @@ void incluir(TANQUE *l){
 	}
 }
 
+/*void buscaUnic() {
+	printf("Digite ")
+}*/
+
 void excluir(TANQUE *l){
 	TIPOCHAVE ch;
 	printf("Tanque a ser excluído: ");
@@ -43,6 +47,7 @@ void excluir(TANQUE *l){
 
 void imprimir_elementos(TANQUE *l){
 	exibirTanque(l);
+	printf("Número de tanques na lista: %d.\n\n",tam(l));
 }
 
 void destruir(TANQUE *l){
@@ -56,6 +61,7 @@ void exibir_detalhes_tanque(TANQUE *l){
 }
 
 int main(){
+	system("color 0a");
 	system("mode80,25");
 	setlocale (LC_ALL,"portuguese");
 	TANQUE tanque;
