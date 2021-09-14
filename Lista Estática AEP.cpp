@@ -13,13 +13,13 @@ void menu() {
 	system("cls");
 }
 
-void incluir(LISTA *l){
+void incluir(TANQUE *l){
 	TIPOCHAVE ch;
 	printf("Qual tanque deseja incluir? ");
 	scanf("%d",&ch);
 	REGISTRO reg;
 	reg.chave = ch;
-	if (incluirElemListaOrd(reg,l)) {
+	if (incluirElemTanqueOrd(reg,l)) {
 		printf("Tanque %d incluído com sucesso.\n\n",ch);
 	}
 	
@@ -28,11 +28,11 @@ void incluir(LISTA *l){
 	}
 }
 
-void excluir(LISTA *l){
+void excluir(TANQUE *l){
 	TIPOCHAVE ch;
 	printf("Tanque a ser excluído: ");
 	scanf("%d",&ch);
-	if (excluirElemLista(ch,l)) {
+	if (excluirElemTanque(ch,l)) {
 		printf("Tanque %d excluído com sucesso.\n\n",ch);
 	}
 	
@@ -41,16 +41,16 @@ void excluir(LISTA *l){
 	}
 }
 
-void imprimir_elementos(LISTA *l){
-	exibirLista(l);
+void imprimir_elementos(TANQUE *l){
+	exibirTanque(l);
 }
 
-void destruir(LISTA *l){
-	destruirLista(l);
+void destruir(TANQUE *l){
+	destruirTanque(l);
 	printf("Lista de tanques zerados.\n\n");
 }
 
-void exibir_detalhes_lista(LISTA *l){
+void exibir_detalhes_tanque(TANQUE *l){
 	printf("Número de tanques na lista: %d.\n",tam(l));
 	printf("Tamanho da lista de tanques (em bytes): %d.\n\n",tamEmBytes(l));
 }
@@ -58,17 +58,17 @@ void exibir_detalhes_lista(LISTA *l){
 int main(){
 	system("mode80,25");
 	setlocale (LC_ALL,"portuguese");
-	LISTA lista;
-	inicializarLista(&lista);
+	TANQUE tanque;
+	inicializarTanque(&tanque);
 	while (opcao != 6) {
 	system("cls");
 	menu();
 		switch (opcao) {
-		    case 1 : incluir(&lista); break;
-		    case 2 : excluir(&lista); break;
-		    case 3 : imprimir_elementos(&lista); break;
-		    case 4 : destruir(&lista); break;
-		    case 5 : exibir_detalhes_lista(&lista); break;
+		    case 1 : incluir(&tanque); break;
+		    case 2 : excluir(&tanque); break;
+		    case 3 : imprimir_elementos(&tanque); break;
+		    case 4 : destruir(&tanque); break;
+		    case 5 : exibir_detalhes_tanque(&tanque); break;
 		}
 	system("pause");
 	}
