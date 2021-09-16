@@ -47,20 +47,6 @@ void exibirTanque(TANQUE *l){
 printf("\"\n");
 } 
 
-/*int tamanho(TANQUE *l) {
-	int i = l->inicio;
-	int tam = 0;
-	while (i != NUL){
-		tam++;
-		i = l->A[i].prox;
-  }
-return tam;
-}*/
-
-/*int tamanhoEmBytes(TANQUE *l) {
-	return(sizeof(TANQUE));
-}*/
-
 int buscaSeq(TIPOCHAVE ch, TANQUE *l){
 	int i = l->inicio;
 	while (i != NUL){
