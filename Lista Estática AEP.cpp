@@ -6,7 +6,6 @@ void menu() {
 	printf("2 - Excluir um tanque \n");
 	printf("3 - Mostrar tanques cadastrados\n");
 	printf("4 - Apagar todos os tanques\n");
-	//printf("5 - Exibir log de utilizacao da lista\n");
 	printf("5 - Buscar tanque na lista\n");
 	printf("6 - SAIR \n");
 	printf("Digite a opção desejada: ");
@@ -45,11 +44,6 @@ void imprimir_elementos(TANQUE *l){
 	exibirTanque(l);
 }
 
-/*void exibir_detalhes_lista(LISTA *l){
-	printf("Numero de tanques na lista: %d.\n",tamanho(l));
-	printf("Tamanho da lista (em bytes): %d.\n",tamanhoEmBytes(l));
-}*/
-
 void destruir(TANQUE *l){
 	destruirTanque(l);
 	printf("Lista de tanques zerados.\n\n");
@@ -83,7 +77,6 @@ int main(){
 			case 2 : excluir(&tanque); break;
 			case 3 : imprimir_elementos(&tanque); break;
 			case 4 : destruir(&tanque); break;
-			//case 5 : exibir_detalhes_lista(&lista); break;
 			case 5 : buscar_elemento(&tanque); break;
 		}
 	system("pause");
