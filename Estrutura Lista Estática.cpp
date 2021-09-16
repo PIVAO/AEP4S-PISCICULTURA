@@ -1,112 +1,148 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
-#define MAX 10
+#define MAX 50
 #define ERRO -1
+#define NUL -1
 #define true 1
 #define false 0
 
-int i = 0, opcao;
+int opcao;
+
+/*Usei o Dev-Cpp 5.11 para desenvolver este projeto, nele o código "typedef int bool;" não é necessário, 
+caso não compile em outro compilador, favor remover o comentário da linha 11*/
+
+//typedef int bool;
 
 typedef int TIPOCHAVE;
 
 typedef struct{
 	TIPOCHAVE chave;
+	int prox;
 } REGISTRO;
 
 typedef struct {
-	REGISTRO A[MAX+1];
-	int nroElem;
+	REGISTRO A[MAX];
+	int inicio;
+	int dispo;
 } TANQUE;
 
 void inicializarTanque(TANQUE *l){
-	l->nroElem = 0;
-}
+	int i;
+	l -> inicio = NUL;
+	l -> dispo = 0;
+	for (i = 0; i < MAX-1; i++) {
+		l -> A[i].prox = i + 1;
+	}
+l -> A[MAX-1].prox = NUL;
+} 
 
 void exibirTanque(TANQUE *l){
-	int i;
-	
-	printf("Tanques adicionados: \" ");
-	for (i=0; i < l->nroElem; i++)
-    printf("%d ", l->A[i].chave);
-	printf("\"\n");
-}
+	int i = l -> inicio;
+	printf("Tanque: \" ");
+	while (i != NUL){
+		printf("%d ", l->A[i].chave); 
+		i = l -> A[i].prox;
+	}
+printf("\"\n");
+} 
 
-int tam(TANQUE *l) {
-	return(l->nroElem);
-}
+/*int tamanho(TANQUE *l) {
+	int i = l->inicio;
+	int tam = 0;
+	while (i != NUL){
+		tam++;
+		i = l->A[i].prox;
+  }
+return tam;
+}*/
 
-int tamEmBytes(TANQUE *l) {
+/*int tamanhoEmBytes(TANQUE *l) {
 	return(sizeof(TANQUE));
-}
+}*/
 
-void destruirTanque(TANQUE *l) {
-	l->nroElem = 0;
-}
-
-bool incluirElemTanque(REGISTRO reg, int i, TANQUE *l){
-	int j;
-	
-	if ((l->nroElem >= MAX) || (i < 1) || (i > (l->nroElem+1))) {
-		return(false);
-	}
-	if((l->nroElem > 0) && (i < l->nroElem+1)){
-		for (j = l->nroElem; j >= i; j--) {
-			l->A[j] = l->A[j-1];
+int buscaSeq(TIPOCHAVE ch, TANQUE *l){
+	int i = l->inicio;
+	while (i != NUL){
+		if (l -> A[i].chave == ch) {
+			return i;
 		}
+	i = l -> A[i].prox;
 	}
-	
-	l->A[i-1] = reg;
-	l->nroElem++;
-	return(true);
+return NUL;
 }
 
-int buscaSeq(TIPOCHAVE ch, TANQUE *l) {
-	while (i < l->nroElem){
-		if(ch == l->A[i].chave) {
-			return(i);
-		}
-		
-		else {
-			i++;
-	    }
+int buscaSeqExc(TIPOCHAVE ch, TANQUE *l, int *ant){
+	*ant = NUL;
+	int i = l -> inicio;
+	while ((i != NUL) && (l -> A[i].chave<ch)){
+		*ant = i;
+		i = l -> A[i].prox;
 	}
-	return(ERRO);
+
+	if ((i != NUL) && (l -> A[i].chave == ch)) {
+		return i;
+	}
+return NUL;
 }
 
-bool incluirElemTanqueOrd(REGISTRO reg, TANQUE *l) {
-	int x = 0;
-	
-	TIPOCHAVE ch = reg.chave;
-	if(l->nroElem >= MAX) {
-		return(false);
+int obterNo(TANQUE *l){
+	int resultado = l->dispo;
+	if (l -> dispo != NUL) {
+		l -> dispo = l -> A[l -> dispo].prox;
+	}
+return resultado;
+}
+
+void devolverNo(TANQUE *l, int j){
+	l -> A[j].prox = l -> dispo;
+	l -> dispo = j;
+}
+
+bool excluirElemTanque(TIPOCHAVE ch, TANQUE *l){
+	int ant, i;
+	i = buscaSeqExc(ch, l, &ant);
+	if (i == NUL) {
+		return false;
 	}
 	
-	l->A[l->nroElem].chave = ch;
-	while(l->A[x].chave < ch) {
-		x++;
-	}
-	
-	if((l->A[x].chave == ch) && (x < l->nroElem)) {
-		return(false);
+	if (ant == NUL) {
+		l -> inicio = l -> A[i].prox;
 	}
 	
 	else {
-		return(incluirElemTanque(reg, x+1, l));
+		l -> A[ant].prox = l -> A[i].prox;
 	}
+devolverNo(l,i);
+return true;
 }
 
-bool excluirElemTanque(TIPOCHAVE ch, TANQUE *l) { 
-	int pos, j;
-	pos = buscaSeq(ch, l);
-	if(pos == ERRO) {
-		return(false);
+void destruirTanque(TANQUE *l) {
+	inicializarTanque(l);
+}
+
+bool inserirElemTanqueOrd(REGISTRO reg, TANQUE *l) {
+	if (l -> dispo == NUL) {
+		return false;
 	}
 	
-	for(j = pos; j < l->nroElem-1; j++) {
-		l->A[j] = l->A[j+1];
+	TIPOCHAVE ch = reg.chave;
+	int ant, i;
+	i = buscaSeqExc(ch, l, &ant);
+	if (i != NUL)  {
+		return false;
 	}
 	
-	l->nroElem--;
-	return(true);
+	i = obterNo(l);
+	l -> A[i] = reg;
+	if (ant == NUL) {
+		l -> A[i].prox = l->inicio;
+		l -> inicio = i;
+	}
+	
+	else {
+		l -> A[i].prox = l -> A[ant].prox;
+		l -> A[ant].prox = i;
+	}  
+return true;
 }
